@@ -8,7 +8,6 @@ import {
   Position,
   Action,
   PlayerAction,
-  Street,
 } from '../types';
 
 export class PokerEngine {
@@ -152,9 +151,9 @@ export class PokerEngine {
     };
 
     for (const combo of combinations) {
-      const eval = this.evaluateHand(combo);
-      if (eval.rank < bestEval.rank) {
-        bestEval = eval;
+      const handEval = this.evaluateHand(combo);
+      if (handEval.rank < bestEval.rank) {
+        bestEval = handEval;
       }
     }
 
@@ -207,7 +206,7 @@ export class PokerEngine {
     }
 
     const result: { [count: number]: Rank[] } = {};
-    for (const [rank, count] of counts.entries()) {
+    for (const [rank, count] of Array.from(counts.entries())) {
       if (!result[count]) result[count] = [];
       result[count].push(rank);
     }
@@ -268,7 +267,7 @@ export class PokerEngine {
   // Initialize a new game state
   static initializeGame(heroPosition: Position, villainPosition: Position): GameState {
     const deck = this.createDeck();
-    const { cards: heroCards, remainingDeck } = this.dealCards(deck, 2);
+    const { cards: heroCards } = this.dealCards(deck, 2);
 
     return {
       heroPosition,

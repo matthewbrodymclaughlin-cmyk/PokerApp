@@ -236,8 +236,6 @@ function App() {
 
   // Render learning metrics
   const renderMetrics = () => {
-    const sessionStats = learningSystem.getSessionStats();
-
     return (
       <div className="metrics-panel">
         <h3>📊 Learning Metrics</h3>
